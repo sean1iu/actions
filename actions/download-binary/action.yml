@@ -1,0 +1,22 @@
+name: Fetch binary from Release assets.
+description: Downloads binary from Release assets, uses @actions/cache for performance.
+inputs:
+  gh-token:
+    description: GitHub token to access repositories releases.
+    required: true
+  repo:
+    description: The org/repo containing the release. Defaults to the current repo.
+    required: false
+  asset-name:
+    description: The name of the asset to download. Defaults to ${repo}+${os}+${arch}.tar.gz.
+    required: false
+  binary:
+    description: path to binary in release assets, defaults to repo name (e.g. gke-deployment) if the binary in the release is named the same as the repo, and it has no unique destination path.
+    required: false
+
+outputs:
+  binaryPath:
+    description: Path to downloaded binary
+runs:
+  using: node16
+  main: ../../dist/actions/download-binary/main/index.js
