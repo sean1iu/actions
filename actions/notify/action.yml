@@ -1,7 +1,7 @@
 name: notify
 description: Notify
 inputs:
-  gh-token:
+  token:
     description: GitHub token to access repositories releases.
     required: true
   repo:
@@ -29,4 +29,4 @@ outputs:
 
 runs:
   using: node16
-  main: ../../dist/actions/notify/main.js
+  main: ./index.js

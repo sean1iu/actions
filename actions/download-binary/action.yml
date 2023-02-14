@@ -19,4 +19,4 @@ outputs:
     description: Path to downloaded binary
 runs:
   using: node16
-  main: ../../dist/actions/download-binary/main.js
+  main: ./index.js
