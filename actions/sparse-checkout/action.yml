@@ -167,3 +167,4 @@ runs:
         cd ..
         rm -rf ${{ inputs.path }}
         echo "::group::Done"
+      shell: bash
