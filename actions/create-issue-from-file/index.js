@@ -4612,7 +4612,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var Stream = _interopDefault(__nccwpck_require__(2781));
 var http = _interopDefault(__nccwpck_require__(3685));
 var Url = _interopDefault(__nccwpck_require__(7310));
-var whatwgUrl = _interopDefault(__nccwpck_require__(8558));
+var whatwgUrl = _interopDefault(__nccwpck_require__(8665));
 var https = _interopDefault(__nccwpck_require__(5687));
 var zlib = _interopDefault(__nccwpck_require__(9796));
 
@@ -8205,7 +8205,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8558:
+/***/ 8665:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9597,7 +9597,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 8665:
+/***/ 9452:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -9634,89 +9634,48 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const util_1 = __importDefault(__nccwpck_require__(3837));
+const fs = __importStar(__nccwpck_require__(7147));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-const fs = __importStar(__nccwpck_require__(7147));
-const util = __importStar(__nccwpck_require__(3837));
-const util_1 = __nccwpck_require__(3837);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputs = {
-                token: core.getInput('token'),
-                rerpository: core.getInput('repository'),
-                issueNumber: Number(core.getInput('issue-number')),
-                title: core.getInput('title'),
-                contentFilepath: core.getInput('content-filepath'),
-                labels: getInputAsArray('labels'),
-                assignees: getInputAsArray('assignees'),
+                // token: core.getInput('token'),
+                token: "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",
+                // repository: core.getInput('repository'),
+                repository: "sean1iu/test-flow",
+                // title: core.getInput('title'),
+                title: "test",
+                // contentFilepath: core.getInput('content-filepath'),
+                contentFilepath: "README.md",
             };
-            core.debug(`Inputs: ${(0, util_1.inspect)(inputs)}`);
-            const [owner, repo] = inputs.rerpository.split('/');
-            core.debug(`Repo: ${(0, util_1.inspect)(repo)}`);
+            const [owner, repo] = inputs.repository.split('/');
+            core.setOutput(owner, repo);
             const octokit = github.getOctokit(inputs.token);
-            if (yield util.promisify(fs.exists)(inputs.contentFilepath)) {
+            if (yield util_1.default.promisify(fs.exists)(inputs.contentFilepath)) {
                 const fileContent = yield fs.promises.readFile(inputs.contentFilepath, 'utf8');
-                core.debug(`File content: ${(0, util_1.inspect)(fileContent)}`);
-                const issueNumber = yield (() => __awaiter(this, void 0, void 0, function* () {
-                    if (inputs.issueNumber) {
-                        yield octokit.rest.issues.update({
-                            owner: owner,
-                            repo: repo,
-                            issue_number: inputs.issueNumber,
-                            title: inputs.title,
-                            body: fileContent,
-                        });
-                        core.info(`Updated issue #${inputs.issueNumber}`);
-                        return inputs.issueNumber;
-                    }
-                    else {
-                        const { data: issue } = yield octokit.rest.issues.create({
-                            owner: owner,
-                            repo: repo,
-                            title: inputs.title,
-                            body: fileContent,
-                        });
-                        core.info(`Created issue #${issue.number}`);
-                        return issue.number;
-                    }
-                }))();
-                if (inputs.labels.length > 0) {
-                    core.info(`Applying assignees '${inputs.assignees}'`);
-                    yield octokit.rest.issues.addLabels({
-                        owner: owner,
-                        repo: repo,
-                        issue_number: issueNumber,
-                        labels: inputs.labels,
-                    });
-                    core.setOutput('issue-number', issueNumber);
-                }
-                else {
-                    core.info(`File not found: ${inputs.contentFilepath}`);
-                }
+                const { data: { number } } = yield octokit.rest.issues.create({
+                    owner,
+                    repo,
+                    title: inputs.title,
+                    body: fileContent,
+                });
+                core.setOutput('issue-created', number.toString());
+            }
+            else {
+                throw new Error(`File not found: ${inputs.contentFilepath}`);
             }
         }
-        catch (error) {
-            core.debug((0, util_1.inspect)(error));
-            core.setFailed(getErrorMessage(error));
+        catch (err) {
+            throw err;
         }
     });
-}
-function getInputAsArray(name, options) {
-    return getStringAsArray(core.getInput(name, options));
-}
-function getStringAsArray(str) {
-    return str
-        .split(/[\n,]+/)
-        .map(s => s.trim())
-        .filter(x => x !== '');
-}
-function getErrorMessage(error) {
-    if (error instanceof Error) {
-        return error.message;
-    }
-    return String(error);
 }
 run();
 
@@ -9901,7 +9860,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(8665);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(9452);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
