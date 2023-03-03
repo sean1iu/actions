@@ -160,11 +160,3 @@ runs:
       run: $GIT log -1 --format='%H'
       working-directory: ${{ inputs.path }}
       shell: bash
-
-    - name: Removing git repo dir
-      run: |
-        echo "::group::Removing git repo dir"
-        cd ..
-        rm -rf ${{ inputs.path }}
-        echo "::group::Done"
-      shell: bash
