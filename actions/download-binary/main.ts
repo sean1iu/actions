@@ -28,7 +28,7 @@ export const getRepo = (inputRepoString: string, context: Context): GetRepoResul
 
 export async function main() {
     try {
-        const token = core.getInput(inputs.ghToken, { required: true });
+        const token = core.getInput(inputs.ghToken, { required: false });
         const assetName = core.getInput(inputs.assetName, { required: false });
         const binary = core.getInput(inputs.binary, { required: false });
         const { owner, repo } = getRepo(core.getInput(inputs.repo, { required: false }), github.context);

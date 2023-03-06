@@ -72134,7 +72134,7 @@ exports.getRepo = getRepo;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const token = core.getInput(inputs.ghToken, { required: true });
+            const token = core.getInput(inputs.ghToken, { required: false });
             const assetName = core.getInput(inputs.assetName, { required: false });
             const binary = core.getInput(inputs.binary, { required: false });
             const { owner, repo } = (0, exports.getRepo)(core.getInput(inputs.repo, { required: false }), github.context);
