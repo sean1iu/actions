@@ -3,7 +3,7 @@ description: Downloads binary from Release assets, uses @actions/cache for perfo
 inputs:
   gh-token:
     description: GitHub token to access repositories releases.
-    required: false
+    required: true
   repo:
     description: The org/repo containing the release. Defaults to the current repo.
     required: false
