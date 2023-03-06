@@ -160,3 +160,8 @@ runs:
       run: $GIT log -1 --format='%H'
       working-directory: ${{ inputs.path }}
       shell: bash
+
+    - name: git remote rm origin
+      run: $GIT remote rm origin
+      working-directory: ${{ inputs.path }}
+      shell: bash
