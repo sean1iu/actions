@@ -9646,14 +9646,10 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputs = {
-                // token: core.getInput('token'),
-                token: "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",
-                // repository: core.getInput('repository'),
-                repository: "sean1iu/test-flow",
-                // title: core.getInput('title'),
-                title: "test",
-                // contentFilepath: core.getInput('content-filepath'),
-                contentFilepath: "README.md",
+                token: core.getInput('token'),
+                repository: core.getInput('repository'),
+                title: core.getInput('title'),
+                contentFilepath: core.getInput('content-filepath'),
             };
             const [owner, repo] = inputs.repository.split('/');
             core.setOutput(owner, repo);
