@@ -9673,7 +9673,7 @@ function run() {
         }
     });
 }
-run();
+run().then(() => core.info(`Completed`));
 
 
 /***/ }),
