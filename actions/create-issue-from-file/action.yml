@@ -10,7 +10,7 @@ inputs:
   title:
     description: The title of the issue.
     required: true
-  contentFilepath:
+  content-filepath:
     description: The path to the file containing the content of the issue.
     required: true
 
