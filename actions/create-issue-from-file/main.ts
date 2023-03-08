@@ -7,12 +7,11 @@ async function run(): Promise<void> {
   try {
     const inputs = {
       token: core.getInput('token'),
-      repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
       title: core.getInput('title'),
       contentFilepath: core.getInput('content-filepath'),
     }
-
-    const [owner, repo] = inputs.repository.split('/');
+    const repository = `${github.context.repo.owner}/${github.context.repo.repo}`
+    const [owner, repo] = repository.split('/');
     core.setOutput(owner, repo);
 
     const octokit = github.getOctokit(inputs.token);
@@ -29,7 +28,7 @@ async function run(): Promise<void> {
 
       core.setOutput('issue-created', number.toString());
     } else {
-      core.info(`File ${inputs.contentFilepath} does not exist`)
+      core.info(`File ${inputs.contentFilepath} does not exist, skipping issue creation.`)
     }
   } catch (err) {
     throw err;

@@ -9647,11 +9647,11 @@ function run() {
         try {
             const inputs = {
                 token: core.getInput('token'),
-                repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
                 title: core.getInput('title'),
                 contentFilepath: core.getInput('content-filepath'),
             };
-            const [owner, repo] = inputs.repository.split('/');
+            const repository = `${github.context.repo.owner}/${github.context.repo.repo}`;
+            const [owner, repo] = repository.split('/');
             core.setOutput(owner, repo);
             const octokit = github.getOctokit(inputs.token);
             if (yield util_1.default.promisify(fs.exists)(inputs.contentFilepath)) {
@@ -9665,7 +9665,7 @@ function run() {
                 core.setOutput('issue-created', number.toString());
             }
             else {
-                core.info(`File ${inputs.contentFilepath} does not exist`);
+                core.info(`File ${inputs.contentFilepath} does not exist, skipping issue creation.`);
             }
         }
         catch (err) {
