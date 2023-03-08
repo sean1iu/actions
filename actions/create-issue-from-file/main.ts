@@ -29,7 +29,8 @@ async function run(): Promise<void> {
 
       core.setOutput('issue-created', number.toString());
     } else {
-      throw new Error(`File not found: ${inputs.contentFilepath}`);
+      // throw new Error(`File ${inputs.contentFilepath} does not exist`);
+      throw console.error(`File ${inputs.contentFilepath} does not exist`);
     }
   } catch (err) {
     throw err;
