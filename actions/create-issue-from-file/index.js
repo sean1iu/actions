@@ -9654,7 +9654,6 @@ function run() {
             const [owner, repo] = inputs.repository.split('/');
             core.setOutput(owner, repo);
             const octokit = github.getOctokit(inputs.token);
-            console.log(`Path: ${inputs.contentFilepath}`);
             if (yield util_1.default.promisify(fs.exists)(inputs.contentFilepath)) {
                 const fileContent = yield fs.promises.readFile(inputs.contentFilepath, 'utf8');
                 const { data: { number } } = yield octokit.rest.issues.create({
@@ -9666,7 +9665,7 @@ function run() {
                 core.setOutput('issue-created', number.toString());
             }
             else {
-                console.log(`File ${inputs.contentFilepath} does not exist`);
+                core.info(`File ${inputs.contentFilepath} does not exist`);
             }
         }
         catch (err) {
@@ -9674,7 +9673,7 @@ function run() {
         }
     });
 }
-run().then(() => core.info(``));
+run();
 
 
 /***/ }),
