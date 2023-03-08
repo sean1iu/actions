@@ -18,8 +18,8 @@ async function run(): Promise<void> {
     const octokit = github.getOctokit(inputs.token);
     console.log(`Path: ${inputs.contentFilepath}`)
 
-    if (await util.promisify(fs.exists)(inputs.contentFilepath).catch(err => { throw err; })) {
-      const fileContent = await fs.promises.readFile(inputs.contentFilepath, 'utf8').catch(err => { throw err; })
+    if (await util.promisify(fs.exists)(inputs.contentFilepath)) {
+      const fileContent = await fs.promises.readFile(inputs.contentFilepath, 'utf8');
 
       const { data: { number } } = await octokit.rest.issues.create({
         owner,
@@ -29,8 +29,8 @@ async function run(): Promise<void> {
       });
 
       core.setOutput('issue-created', number.toString());
-    // } else {
-    //   throw new Error(`File ${inputs.contentFilepath} does not exist`);
+    } else {
+      throw new Error(`File ${inputs.contentFilepath} does not exist`);
     }
   } catch (err) {
     throw err;
