@@ -28,10 +28,10 @@ async function run(): Promise<void> {
       });
 
       core.setOutput('issue-created', number.toString());
-    } else {
-      // throw new Error(`File ${inputs.contentFilepath} does not exist`);
-      throw console.error(`File ${inputs.contentFilepath} does not exist`);
     }
+    // } else {
+    //   throw new Error(`File ${inputs.contentFilepath} does not exist`);
+    // }
   } catch (err) {
     throw err;
   }
