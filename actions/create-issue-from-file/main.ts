@@ -30,7 +30,8 @@ async function run(): Promise<void> {
 
       core.setOutput('issue-created', number.toString());
     } else {
-      throw new Error(`File ${inputs.contentFilepath} does not exist`);
+      // throw new (`File ${inputs.contentFilepath} does not exist`);
+      console.log(`File ${inputs.contentFilepath} does not exist`)
     }
   } catch (err) {
     throw err;
