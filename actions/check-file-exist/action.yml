@@ -1,0 +1,32 @@
+name: check-file-exist
+description: check-file-exist
+inputs:
+  token:
+    description: GitHub token to access repositories releases.
+    required: true
+  repo:
+    description: The org/repo containing the release. Defaults to the current repo.
+    required: false
+  issueNumber:
+    description: The issue number to notify.
+    required: true
+  title:
+    description: The title of the issue.
+    required: true
+  contentFilepath:
+    description: The path to the file containing the content of the issue.
+    required: true
+  labels:
+    description: The labels to add to the issue.
+    required: false
+  assignees:
+    description: The assignees to add to the issue.
+    required: false
+
+outputs:
+  issueNumber:
+    description: The issue number.
+
+runs:
+  using: node16
+  main: ./index.js
