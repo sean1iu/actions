@@ -7,7 +7,7 @@ async function run(): Promise<void> {
   try {
     const inputs = {
       token: core.getInput('token'),
-      repository: core.getInput('repository'),
+      repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
       title: core.getInput('title'),
       contentFilepath: core.getInput('content-filepath'),
     }
@@ -30,7 +30,6 @@ async function run(): Promise<void> {
 
       core.setOutput('issue-created', number.toString());
     } else {
-      // throw new (`File ${inputs.contentFilepath} does not exist`);
       console.log(`File ${inputs.contentFilepath} does not exist`)
     }
   } catch (err) {
@@ -38,4 +37,4 @@ async function run(): Promise<void> {
   }
 }
 
-run();
+run().then(() => core.info(``));

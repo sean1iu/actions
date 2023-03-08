@@ -9647,7 +9647,7 @@ function run() {
         try {
             const inputs = {
                 token: core.getInput('token'),
-                repository: core.getInput('repository'),
+                repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
                 title: core.getInput('title'),
                 contentFilepath: core.getInput('content-filepath'),
             };
@@ -9666,7 +9666,6 @@ function run() {
                 core.setOutput('issue-created', number.toString());
             }
             else {
-                // throw new (`File ${inputs.contentFilepath} does not exist`);
                 console.log(`File ${inputs.contentFilepath} does not exist`);
             }
         }
@@ -9675,7 +9674,7 @@ function run() {
         }
     });
 }
-run();
+run().then(() => core.info(``));
 
 
 /***/ }),
